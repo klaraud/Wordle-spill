@@ -7,3 +7,20 @@
 img{
     width: 100%;
 }
+
+body{
+    background-color: darkslategray;
+}
+
+.index{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.index > h1,p,h2,a{
+    margin: 10px;
+    color: white;
+}
