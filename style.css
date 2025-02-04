@@ -10,7 +10,7 @@ img {
 
 body {
     background-color: darkslategray;
-    display: flex;
+  
     
 }
 
@@ -35,7 +35,7 @@ a {
 }
 
 .oppsett{
-    height: 100vh;
+    height: 70vh;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 80px);
@@ -47,4 +47,10 @@ a {
 .oppsett > div{
     border: 2px solid white;
     margin: 5px;
+}
+h1{
+    text-align: center;
+    color: white;
+    margin-top: 80px;
+
 }
