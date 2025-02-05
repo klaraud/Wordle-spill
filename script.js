@@ -1,8 +1,8 @@
 
 const gridElm = document.querySelector(".oppsett")
 
-for (let i = 0; i < 5*6; i++) {
-    const boksElm = document.createElement("div") 
+for (let i = 0; i < 5 * 6; i++) {
+    const boksElm = document.createElement("div")
     gridElm.appendChild(boksElm)
 }
 
@@ -14,12 +14,16 @@ const ord = ["banan", "bilde", "bjørn", "blått", "brann", "bruke", "byggs", "d
     "vifte", "vinter", "vokse", "vårens"]
 
 
-let guessString = ord[Math.floor(Math.random()* ord)]
+let guessString = ord[Math.floor(Math.random() * ord.length)]
+console.log(guessString)
+
+
+let guessed = ""
 
 const bokser = document.querySelectorAll(".oppsett > div")
 
-for (let rad = 0; rad < 6; rad++) {
-    
+for (let rad = 0; rad < 2; rad++) {
+
     for (let i = 0; i < 5; i++) {
         const boksElm = bokser[rad * 5 + i];
         const inputElm = document.createElement("input")
@@ -35,22 +39,42 @@ function hopp(event) {
     console.log(event)
     const target = event.target
     const bokstav = target.value
+    guessed += bokstav
 
-    console.log("Du skrev:", bokstav)
-    console.log(target.parentElement.nextSibling.children[0])
+    console.log("Du gjettet:", guessed)
+    //console.log(target.parentElement.nextSibling.children[0])
 
     const nesteInput = target.parentElement.nextSibling.children[0]
-    
-    target.addEventListener("keydown", function(event){
-        if (event.key === "Enter" && nesteInput){
+
+    target.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && nesteInput) {
+            if (guessed.length == 5) {
+                gjettOrd()
+            }
             nesteInput.focus()
         }
-        
+
     })
 }
 
-function gjettOrd(){
-    let ordet = guessString
-    console.log(ordet)
+function gjettOrd() {
+    console.log("Function gjettOrd()")
+
+    for (let i = 0; i < guessed.length; i++) {
+        if (guessString.charAt(i) == guessed.charAt(i)) { // charAt = character at position, om bokstaven er i posisjonen
+            console.log("bokstav på posisjon", i, "er riktig")
+            styleboxNr(i, "green")
+        } else if ( guessString.includes(guessed.charAt(i))   ) {
+            styleboxNr(i, "yellow")
+        }
+
+    }
+
+}
+
+
+function styleboxNr(nummer, farge) {
+    const boksElm = bokser[nummer];
+    boksElm.children[0].style.backgroundColor = farge
 
 }
