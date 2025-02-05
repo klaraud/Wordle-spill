@@ -53,3 +53,10 @@ h1{
     margin-top: 80px;
 
 }
+
+.oppsett > div > input{
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+}
