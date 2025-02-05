@@ -25,6 +25,7 @@ for (let rad = 0; rad < 6; rad++) {
         const inputElm = document.createElement("input")
         inputElm.addEventListener("input", hopp)
         boksElm.appendChild(inputElm)
+        inputElm.maxLength = 1
     }
 }
 
