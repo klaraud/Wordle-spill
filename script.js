@@ -57,24 +57,48 @@ function hopp(event) {
     })
 }
 
+let currentRow = 0
 function gjettOrd() {
     console.log("Function gjettOrd()")
 
-    for (let i = 0; i < guessed.length; i++) {
-        if (guessString.charAt(i) == guessed.charAt(i)) { // charAt = character at position, om bokstaven er i posisjonen
-            console.log("bokstav på posisjon", i, "er riktig")
-            styleboxNr(i, "green")
-        } else if ( guessString.includes(guessed.charAt(i))   ) {
-            styleboxNr(i, "yellow")
+     if (guessed === guessString) {
+        //Lage hele raden grønn og avslutte spillet
+        for (let i = 0; i < 5; i++) {
+            styleboxNr(currentRow * 5 + i, "green")
         }
-
+        avsluttSpill()
     }
 
-}
+        for (let i = 0; i < guessed.length; i++) {
+            if (guessString.charAt(i) == guessed.charAt(i)) { // charAt = character at position, om bokstaven er i posisjonen
+                console.log("bokstav på posisjon", i, "er riktig")
+                styleboxNr(i, "green")
+            } else if (guessString.includes(guessed.charAt(i))) {
+                styleboxNr(i, "yellow")
+            }
+
+        }
+
+        guessed = ""
+        currentRow++
+
+        //Hopp til første input i neste rad
+        if (currentRow < 6) {
+            bokser[currentRow * 5].children[0].focus()
+        }
+    }
+
+
+
 
 
 function styleboxNr(nummer, farge) {
     const boksElm = bokser[nummer];
     boksElm.children[0].style.backgroundColor = farge
 
+}
+
+function avsluttSpill() {
+    const overskrift = document.getElementById("header")
+    overskrift.innerHTML = "Gratulerer, du fikk det til!"
 }
