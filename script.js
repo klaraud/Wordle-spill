@@ -46,15 +46,17 @@ function hopp(event) {
 
     const nesteInput = target.parentElement.nextSibling.children[0]
 
-    target.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" && nesteInput) {
-            if (guessed.length == 5) {
-                gjettOrd()
-            }
-            nesteInput.focus()
-        }
+    if (nesteInput){
+        nesteInput.focus()
+    }
 
-    })
+    if (guessed.length === 5){
+        gjettOrd()
+    }
+
+    
+
+    
 }
 
 let currentRow = 0
@@ -73,7 +75,7 @@ function gjettOrd() {
         for (let i = 0; i < guessed.length; i++) {
             if (guessString.charAt(i) == guessed.charAt(i)) { // charAt = character at position, om bokstaven er i posisjonen
                 console.log("bokstav på posisjon", i, "er riktig")
-                styleboxNr(currentRow*5 +i, "green")
+                styleboxNr(currentRow*5 +i, "green") // currentrow er rad, i er kolonner
             } else if (guessString.includes(guessed.charAt(i))) {
                 styleboxNr(currentRow*5 +i, "yellow")
             }
