@@ -1,4 +1,3 @@
-
 const gridElm = document.querySelector(".oppsett")
 
 for (let i = 0; i < 5 * 6; i++) {
@@ -50,10 +49,6 @@ function hopp(event) {
 
     guessed += bokstav
 
-    //function slettBokstav(){
-    // const currentRowElm = document.querySelectorAll(".oppsett > div")
-    // }
-
 
     console.log("Du gjettet:", guessed)
     //console.log(target.parentElement.nextSibling.children[0])
@@ -68,11 +63,23 @@ function hopp(event) {
 
 }
 document.addEventListener("keydown", trykkTast)
+
 function trykkTast(event){
     if (event.key == "Enter"){
         trykkEnter()
-    }
+    } else if (event.key == "Backspace")
+        slettBokstav()
 }
+
+function slettBokstav(){
+    if (guessed.length > 0){
+        guessed = guessed.slice(0,-1) // fjerner siste boksta fra guessed strengen
+        const currentInput = document.querySelectorAll(".oppsett > div")[currentRow*5 + guessed.length].children[0]
+        currentInput.value =""
+        currentInput.focus()
+    }
+    }
+
 function trykkEnter() {
     if (guessed.length === 5) {
         gjettOrd()
