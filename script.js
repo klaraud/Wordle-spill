@@ -6,8 +6,8 @@ for (let i = 0; i < 5 * 6; i++) {
     gridElm.appendChild(boksElm)
 }
 
-const ord = ["banan", "bilde", "bjørn", "blått", "brann", "bruke", "byggs", "drage", "fjell",
-    "flink", "frisk", "fugle", "gitar", "glass", "grønn", "huske", "hytte", "kasse", "klubb",
+const ord = ["banan", "bilde", "bjørn", "blåse", "brant", "bruke", "drage",
+    "flink", "frisk", "fugle", "gitar", "huske", "hytte", "kasse", "klubb",
     "krane", "lytte", "måtte", "neste", "norsk", "oljen", "pakke", "piano", "radio", "rette",
     "sette", "skape", "skift", "skyte", "smake", "smykk", "snakk", "sovne", "spise", "stein",
     "strek", "støtt", "svart", "sykle", "tanke", "trene", "trøtt", "tusen", "varme", "verdt",
@@ -22,7 +22,7 @@ let guessed = ""
 
 const bokser = document.querySelectorAll(".oppsett > div")
 
-for (let rad = 0; rad < 2; rad++) {
+for (let rad = 0; rad < 6; rad++) {
 
     for (let i = 0; i < 5; i++) {
         const boksElm = bokser[rad * 5 + i];
@@ -67,18 +67,20 @@ function gjettOrd() {
             styleboxNr(currentRow * 5 + i, "green")
         }
         avsluttSpill()
+        return
     }
 
         for (let i = 0; i < guessed.length; i++) {
             if (guessString.charAt(i) == guessed.charAt(i)) { // charAt = character at position, om bokstaven er i posisjonen
                 console.log("bokstav på posisjon", i, "er riktig")
-                styleboxNr(i, "green")
+                styleboxNr(currentRow*5 +i, "green")
             } else if (guessString.includes(guessed.charAt(i))) {
-                styleboxNr(i, "yellow")
+                styleboxNr(currentRow*5 +i, "yellow")
             }
 
         }
 
+        //Nullstiller gjette og øker raden
         guessed = ""
         currentRow++
 
