@@ -41,6 +41,10 @@ function hopp(event) {
     const target = event.target
     const bokstav = target.value
 
+    if (bokstav == "" || bokstav == " ") {
+        return
+    }
+
     const sisteRute = target.classList.contains("siste-rute-true")
     console.log("hopp med sisteRute", sisteRute)
 
