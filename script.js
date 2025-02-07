@@ -27,6 +27,8 @@ for (let rad = 0; rad < 6; rad++) {
     for (let i = 0; i < 5; i++) {
         const boksElm = bokser[rad * 5 + i];
         const inputElm = document.createElement("input")
+        const className = "siste-rute-" + (i%5 == 4)
+        inputElm.classList.add( className )
         inputElm.addEventListener("input", hopp)
         boksElm.appendChild(inputElm)
         inputElm.maxLength = 1
@@ -36,52 +38,40 @@ for (let rad = 0; rad < 6; rad++) {
 
 //Funksjonen får den til å hoppe til input-elementet i neste rute etter man trykker enter
 function hopp(event) {
-    console.log(event)
     const target = event.target
     const bokstav = target.value
+
+    const sisteRute = target.classList.contains("siste-rute-true")
+    console.log("hopp med sisteRute", sisteRute)
+
     guessed += bokstav
+
+    //function slettBokstav(){
+    // const currentRowElm = document.querySelectorAll(".oppsett > div")
+    // }
+
 
     console.log("Du gjettet:", guessed)
     //console.log(target.parentElement.nextSibling.children[0])
 
     const nesteInput = target.parentElement.nextSibling.children[0]
 
-    if (nesteInput){
+
+    if (nesteInput && sisteRute == false) {
         nesteInput.focus()
     }
 
-    if (guessed.length === 5){
-        gjettOrd()
-    }
 
-    
-
-    
 }
-
-let currentRow = 0
-function gjettOrd() {
-    console.log("Function gjettOrd()")
-
-     if (guessed === guessString) {
-        //Lage hele raden grønn og avslutte spillet
-        for (let i = 0; i < 5; i++) {
-            styleboxNr(currentRow * 5 + i, "green")
-        }
-        avsluttSpill()
-        return
+document.addEventListener("keydown", trykkTast)
+function trykkTast(event){
+    if (event.key == "Enter"){
+        trykkEnter()
     }
-
-        for (let i = 0; i < guessed.length; i++) {
-            if (guessString.charAt(i) == guessed.charAt(i)) { // charAt = character at position, om bokstaven er i posisjonen
-                console.log("bokstav på posisjon", i, "er riktig")
-                styleboxNr(currentRow*5 +i, "green") // currentrow er rad, i er kolonner
-            } else if (guessString.includes(guessed.charAt(i))) {
-                styleboxNr(currentRow*5 +i, "yellow")
-            }
-
-        }
-
+}
+function trykkEnter() {
+    if (guessed.length === 5) {
+        gjettOrd()
         //Nullstiller gjette og øker raden
         guessed = ""
         currentRow++
@@ -91,6 +81,35 @@ function gjettOrd() {
             bokser[currentRow * 5].children[0].focus()
         }
     }
+
+}
+
+let currentRow = 0
+function gjettOrd() {
+    console.log("Function gjettOrd()")
+
+    if (guessed === guessString) {
+        //Lage hele raden grønn og avslutte spillet
+        for (let i = 0; i < 5; i++) {
+            styleboxNr(currentRow * 5 + i, "green")
+        }
+        avsluttSpill()
+        return
+    }
+
+    for (let i = 0; i < guessed.length; i++) {
+        if (guessString.charAt(i) == guessed.charAt(i)) { // charAt = character at position, om bokstaven er i posisjonen
+            console.log("bokstav på posisjon", i, "er riktig")
+            styleboxNr(currentRow * 5 + i, "green") // currentrow er rad, i er kolonner
+        } else if (guessString.includes(guessed.charAt(i))) {
+
+            styleboxNr(currentRow * 5 + i, "yellow")
+        }
+
+    }
+
+
+}
 
 
 
