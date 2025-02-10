@@ -18,6 +18,7 @@ console.log(guessString)
 
 
 let guessed = ""
+let sisteGjett = false
 
 const bokser = document.querySelectorAll(".oppsett > div")
 
@@ -62,7 +63,15 @@ function hopp(event) {
     console.log("Du gjettet:", guessed)
     //console.log(target.parentElement.nextSibling.children[0])
 
-    const nesteInput = target.parentElement.nextSibling.children[0]
+    const parent = target.parentElement
+    let nesteInput = null
+    if (parent.nextSibling) {
+        nesteInput = parent.nextSibling.children[0]
+    } else {
+        // No sibling - vi har kommet til slutten
+        sisteGjett = true
+    }
+
 
 
     if (nesteInput && sisteRute == false) {
@@ -92,6 +101,13 @@ function slettBokstav(){
 function trykkEnter() {
     if (guessed.length == 5) {
         gjettOrd()
+
+        //låser forrige rad 
+        for (let i = 0; i < 5; i++) {
+            bokser[currentRow*5+i].children[0].disabled = true
+            
+        }
+
         //Nullstiller gjette og øker raden
         guessed = ""
         currentRow++
@@ -131,7 +147,7 @@ function gjettOrd() {
 
     }
 
-    if (currentRow == 6 && guessed != guessString){
+    if (sisteGjett && guessed != guessString){
         avsluttSpill()
        // overskrift.innerHTML = "Du fikk det dessverre ikke til. Ordet var: ", guessString,"."
 
@@ -155,3 +171,20 @@ function avsluttSpill() {
     overskrift.innerHTML = "Ordet var: "+guessString
  
 }
+
+
+// regler 
+
+const regelDiv = document.getElementById("regel")
+const regelTekst = regelDiv.querySelector("p")
+
+regelDiv.addEventListener("mouseenter", () => {
+    regelTekst.textContent = "Alle ord har kun én av samme bokstav. for eksempel: våren"
+    regelTekst.style.color = "darkgreen"
+})
+
+regelDiv.addEventListener("mouseleave", () => {
+    regelTekst.textContent = "..."
+    regelTekst.style.color = "white"
+
+})
