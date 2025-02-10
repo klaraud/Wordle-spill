@@ -87,7 +87,6 @@ function trykkEnter() {
         guessed = ""
         currentRow++
 
-        //Hopp til første input i neste rad
         if (currentRow < 6) {
             bokser[currentRow * 5].children[0].focus()
         }
@@ -105,6 +104,7 @@ function gjettOrd() {
             styleboxNr(currentRow * 5 + i, "green")
         }
         avsluttSpill()
+        //overskrift.innerHTML = "Gratulerer, du fikk det til!"
         return
     }
 
@@ -116,6 +116,12 @@ function gjettOrd() {
 
             styleboxNr(currentRow * 5 + i, "yellow")
         }
+
+    }
+
+    if (currentRow == 6 && guessed != guessString){
+        avsluttSpill()
+       // overskrift.innerHTML = "Du fikk det dessverre ikke til. Ordet var: ", guessString,"."
 
     }
 
@@ -134,5 +140,6 @@ function styleboxNr(nummer, farge) {
 
 function avsluttSpill() {
     const overskrift = document.getElementById("header")
-    overskrift.innerHTML = "Gratulerer, du fikk det til!"
+    overskrift.innerHTML = "Ordet var: "+guessString
+ 
 }
