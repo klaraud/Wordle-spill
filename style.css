@@ -61,4 +61,7 @@ h1{
     text-align: center;
 }
 
-    
+.oppsett input {
+    transition: background-color 0.5s ease-in-out; /* Glatt overgang */
+}
+
