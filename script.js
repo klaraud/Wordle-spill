@@ -5,12 +5,12 @@ for (let i = 0; i < 5 * 6; i++) {
     gridElm.appendChild(boksElm)
 }
 
-const ord = ["banan", "bilde", "bjørn", "blåse", "brant", "bruke", "drage",
+const ord = ["bilde", "bjørn", "blåse", "brant", "bruke", "drage",
     "flink", "frisk", "fugle", "gitar", "huske", "harde", "krone", "klone",
     "krane", "lange", "magen", "neste", "norsk", "oljen", "prakt", "piano", "radio", "vrang",
     "senke", "skape", "skift", "skyte", "smake", "smake", "anker", "sovne", "spise", "stein",
     "strek", "trange", "svart", "sykle", "tanke", "trene", "våren", "tusen", "varme", "verdt",
-    "vifte", "vokse"]
+    "vifte", "vokse", "poeng", "brøyt"]
 
 
 let guessString = ord[Math.floor(Math.random() * ord.length)]
@@ -27,8 +27,8 @@ for (let rad = 0; rad < 6; rad++) {
     for (let i = 0; i < 5; i++) {
         const boksElm = bokser[rad * 5 + i];
         const inputElm = document.createElement("input")
-        const className = "siste-rute-" + (i%5 == 4)
-        inputElm.classList.add( className )
+        const className = "siste-rute-" + (i % 5 == 4)
+        inputElm.classList.add(className)
         inputElm.addEventListener("input", hopp)
         boksElm.appendChild(inputElm)
         inputElm.maxLength = 1
@@ -82,21 +82,21 @@ function hopp(event) {
 }
 document.addEventListener("keydown", trykkTast)
 
-function trykkTast(event){
-    if (event.key == "Enter"){
+function trykkTast(event) {
+    if (event.key == "Enter") {
         trykkEnter()
     } else if (event.key == "Backspace")
         slettBokstav()
 }
 
-function slettBokstav(){
-    if (guessed.length > 0){
-        guessed = guessed.slice(0,-1) // fjerner siste boksta fra guessed strengen
-        const currentInput = document.querySelectorAll(".oppsett > div")[currentRow*5 + guessed.length].children[0]
-        currentInput.value =""
+function slettBokstav() {
+    if (guessed.length > 0) {
+        guessed = guessed.slice(0, -1) // fjerner siste boksta fra guessed strengen
+        const currentInput = document.querySelectorAll(".oppsett > div")[currentRow * 5 + guessed.length].children[0]
+        currentInput.value = ""
         currentInput.focus()
     }
-    }
+}
 
 function trykkEnter() {
     if (guessed.length == 5) {
@@ -104,8 +104,9 @@ function trykkEnter() {
 
         //låser forrige rad 
         for (let i = 0; i < 5; i++) {
-            bokser[currentRow*5+i].children[0].disabled = true
-            
+            bokser[currentRow * 5 + i].children[0].disabled = true
+
+
         }
 
         //Nullstiller gjette og øker raden
@@ -115,6 +116,7 @@ function trykkEnter() {
         if (currentRow < 6) {
             for (let i = 0; i < 5; i++) {
                 bokser[currentRow * 5 + i].children[0].disabled = false;
+
             }
             bokser[currentRow * 5].children[0].focus()
         }
@@ -147,9 +149,9 @@ function gjettOrd() {
 
     }
 
-    if (sisteGjett && guessed != guessString){
+    if (sisteGjett && guessed != guessString) {
         avsluttSpill()
-       // overskrift.innerHTML = "Du fikk det dessverre ikke til. Ordet var: ", guessString,"."
+        // overskrift.innerHTML = "Du fikk det dessverre ikke til. Ordet var: ", guessString,"."
 
     }
 
@@ -168,8 +170,8 @@ function styleboxNr(nummer, farge) {
 
 function avsluttSpill() {
     const overskrift = document.getElementById("header")
-    overskrift.innerHTML = "Ordet var: "+guessString
- 
+    overskrift.innerHTML = "Ordet var: " + guessString
+
 }
 
 
