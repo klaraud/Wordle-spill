@@ -31,8 +31,17 @@ for (let rad = 0; rad < 6; rad++) {
         inputElm.addEventListener("input", hopp)
         boksElm.appendChild(inputElm)
         inputElm.maxLength = 1
+
+        // Gjør alle input-felt disablet unntatt den første raden
+        if (rad != 0) {
+            inputElm.disabled = true;
+        }
+
+        boksElm.appendChild(inputElm)
     }
 }
+
+
 
 
 //Funksjonen får den til å hoppe til input-elementet i neste rute etter man trykker enter
@@ -81,13 +90,16 @@ function slettBokstav(){
     }
 
 function trykkEnter() {
-    if (guessed.length === 5) {
+    if (guessed.length == 5) {
         gjettOrd()
         //Nullstiller gjette og øker raden
         guessed = ""
         currentRow++
 
         if (currentRow < 6) {
+            for (let i = 0; i < 5; i++) {
+                bokser[currentRow * 5 + i].children[0].disabled = false;
+            }
             bokser[currentRow * 5].children[0].focus()
         }
     }
@@ -98,7 +110,7 @@ let currentRow = 0
 function gjettOrd() {
     console.log("Function gjettOrd()")
 
-    if (guessed === guessString) {
+    if (guessed == guessString) {
         //Lage hele raden grønn og avslutte spillet
         for (let i = 0; i < 5; i++) {
             styleboxNr(currentRow * 5 + i, "green")
