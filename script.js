@@ -9,7 +9,7 @@ const ord = ["bilde", "bjørn", "blåse", "brant", "bruke", "drage",
     "flink", "frisk", "fugle", "gitar", "huske", "harde", "krone", "klone",
     "krane", "lange", "magen", "neste", "norsk", "oljen", "prakt", "piano", "radio", "vrang",
     "senke", "skape", "skift", "skyte", "smake", "smake", "anker", "sovne", "spise", "stein",
-    "strek", "trange", "svart", "sykle", "tanke", "trene", "våren", "tusen", "varme", "verdt",
+    "strek", "trang", "svart", "sykle", "tanke", "trene", "våren", "tusen", "varme", "verdt",
     "vifte", "vokse", "poeng", "brøyt"]
 
 
@@ -132,9 +132,11 @@ function gjettOrd() {
         //Lage hele raden grønn og avslutte spillet
         for (let i = 0; i < 5; i++) {
             styleboxNr(currentRow * 5 + i, "green")
+            
         }
-        avsluttSpill()
-        //overskrift.innerHTML = "Gratulerer, du fikk det til!"
+        bokser[currentRow * 5].parent.nextSibling.children.disabled = true
+        const overskrift = document.getElementById("header")
+        overskrift.innerHTML = "Gratulerer, du fikk det til!"
         return
     }
 
@@ -152,7 +154,6 @@ function gjettOrd() {
     if (sisteGjett && guessed != guessString) {
         avsluttSpill()
         // overskrift.innerHTML = "Du fikk det dessverre ikke til. Ordet var: ", guessString,"."
-
     }
 
 
@@ -171,6 +172,7 @@ function styleboxNr(nummer, farge) {
 function avsluttSpill() {
     const overskrift = document.getElementById("header")
     overskrift.innerHTML = "Ordet var: " + guessString
+    
 
 }
 
